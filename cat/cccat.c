@@ -12,11 +12,14 @@ void print_file(const char* filename)
 {
     FILE *file = fopen(filename, "r");
     if (file == NULL) {
+        //output an error meaasge if file can not be opened
         printf("Unable to open file %s\n", filename);
         return;
     }
-    //Read and print the file content
-    char ch;
+    
+    int ch;
+    //Loop through the file and print each character until 
+    //EOF is reached
     while ((ch = fgetc(file)) != EOF) {
         putchar(ch);
     }
@@ -34,12 +37,24 @@ int main(int argc, char *argv[])
 {
     FILE *file;
     char ch;
-    //check if the user has provided a filename
-    if (argc != 2){
-        printf("Usage: %s filename\n", argv[0]);
+    //check if the program is called with the correct 
+    //number of arguments
+    if (argc < 2){
+        // Print usage information if no filenames are provided
+        printf("Usage: %s filename1 [filename2 ...]\n", argv[0]);
         return (1);
     }
-    //open the file specified on the command line
-    print_file(argv[1]);
+
+    //Loop through the provided filenames and print their content
+    for (int i = 1; i < argc; ++i){
+        //print the current filename
+        printf(argv[1]);
+        //Call the function to print the contents of the file
+        print_file(argv[i]);
+        //print a newline character to separate the filenames
+        printf("\n");
+        
+    }
+    
     return (0);
 }
